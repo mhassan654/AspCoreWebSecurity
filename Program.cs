@@ -1,7 +1,35 @@
+using ASPCoreWebSecurity.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using static ASPCoreWebSecurity.Authorization.HRManagerProbationRequirement;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
+{
+    options.Cookie.Name = "MyCookieAuth";
+    options.ExpireTimeSpan=TimeSpan.FromSeconds(30);
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
+    options.AddPolicy("MustBelongToHRDepartment", policy => policy.RequireClaim("Department", "HR"));
+    options.AddPolicy("HRManagerOnly", policy => policy.RequireClaim("Department", "HR")
+            .RequireClaim("Manager")
+            .Requirements.Add(new HRManagerProbationRequirement(300))
+        );
+}); 
+
+builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
+
+builder.Services.AddHttpClient("OurWebApi", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5281/");
+});
+
 
 var app = builder.Build();
 
@@ -18,6 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

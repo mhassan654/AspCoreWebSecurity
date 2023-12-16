@@ -2,18 +2,31 @@
 @model ASPCoreWebSecurity.Pages.HRManager
 
 @{
-    Layout = null;
+   
 }
+<div class="text-center">
+    <h1 class="display-4">
+        Welcome to HR Manager Department
+    </h1> 
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>Date</tr>
+            <tr>Temp C</tr>
+            <tr>Temp F</tr>
+            <tr>Summary</tr>
+        </thead>
 
-<!DOCTYPE html>
+        <tbody>
+            @foreach (var item in Model.ForecastsItems)
+            {
+                <tr>
+                    <td>@item.Date.ToLongDateString()</td>
+                    <td>@item.TemperatureC</td>
+                    <td>@item.TemperatureF</td>
+                    <td>@item.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
-    
 </div>
-</body>
-</html>
