@@ -17,7 +17,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
     options.AddPolicy("MustBelongToHRDepartment", policy => policy.RequireClaim("Department", "HR"));
-    options.AddPolicy("HRManagerOnly", policy => policy.RequireClaim("Department", "HR")
+    options.AddPolicy("HRManagerOnly", 
+        policy => policy.RequireClaim("Department", "HRManager")
             .RequireClaim("Manager")
             .Requirements.Add(new HRManagerProbationRequirement(300))
         );
@@ -27,7 +28,14 @@ builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequireme
 
 builder.Services.AddHttpClient("OurWebApi", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5281/");
+    client.BaseAddress = new Uri("https://localhost:7288/");
+});
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.IsEssential = true;
 });
 
 
@@ -45,6 +53,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
