@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreWebSecurity", "ASPCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web Api", "..\Web Api\Web Api.csproj", "{240C1CAF-F4DC-44A8-A15C-76EA578CFD6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "..\WebApp\WebApp.csproj", "{0D744F22-E3BA-4E3E-BCB8-D35A5CBC2952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "..\WebApp\WebApp.csproj", "{0D744F22-E3BA-4E3E-BCB8-D35A5CBC2952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
