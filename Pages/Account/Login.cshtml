@@ -1,19 +1,46 @@
 ﻿@page
-@model ASPCoreWebSecurity.Pages.Account.Login
-
+@model ASPCoreWebSecurity.Pages.Account.LoginModel
 @{
-    Layout = null;
 }
 
-<!DOCTYPE html>
+<div class="container card">
+    <div class="card-body">
+        <form method="post">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="mb-3 form-group row">
+                <div class="col-2">
+                    <label asp-for="Credential.UserName"></label>
+                </div>
+                <div class="col-5">
+                    <input type="text" class="form-control" asp-for="Credential.UserName">
+                    <span class="text-danger" asp-validation-for="Credential.UserName"></span>
+                </div>
+            </div>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
-    
+            <div class="form-group row mb-3">
+                <div class="col-2">
+                    <label asp-for="Credential.Password"></label>
+                </div>
+                <div class="col-5">
+                    <input type="password" class="form-control" asp-for="Credential.Password">
+                    <span class="text-danger" asp-validation-for="Credential.Password"></span>
+                </div>
+            </div>
+
+            <div class="form-check row mb-3">
+               
+                <div class="col-5">
+                    <input type="checkbox" class="form-check-input" asp-for="Credential.RememberMe">
+                    <label class="form-check-label" asp-for="Credential.RememberMe"></label>
+                </div>
+            </div>
+
+            <div class=" row my-2">
+                <div class="col-5">
+                    <input type="submit" class="btn btn-primary btn-block">
+                </div>
+            </div>
+        </form>
+    </div>
+  
 </div>
-</body>
-</html>
